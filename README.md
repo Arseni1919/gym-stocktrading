@@ -1,7 +1,7 @@
 # Gym Env For Stock Trading
 
 A custom OpenAI gym environment for simulating stock trades on historical price data with live rendering.
-In this article, we've implemented a simple, yet elegant visualization of the agent's trades using Matplotlib.
+In this project, we've implemented a simple, yet elegant visualization of the agent's trades using Matplotlib.
 
 Great thanks to:
  - [Creating new Gym Env | by OpenAI](https://github.com/openai/gym/blob/master/docs/creating-environments.md)
@@ -14,13 +14,14 @@ Great thanks to:
 
 In order to run the environment you need to do the following:
 
-1. Copy the repo to your computer.</il>
+1. Copy the repo to your computer.
 2. Go to the one directory above of the copied repo on your computer in the Terminal.
-3. Click:
-
+For example: ` cd PycharmProjects/ `.
+3. Run the command:
 `
 pip install -e gym-stocktrading
-`
+`.
+
 > That's it! You've installed the new gym-env on your computer.
 
 ## Sanity Check
