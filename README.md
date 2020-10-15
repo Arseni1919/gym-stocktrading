@@ -32,7 +32,7 @@ import gym
 
 env = gym.make('gym_stocktrading:stocktrading-v0')
 ob = env.reset()
-done = True
+done = False
 
 for i in range(100):
     while not done:
