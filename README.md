@@ -1,6 +1,7 @@
 # Gym Env For Stock Trading
 
-Created by Neural Trading (c)
+A custom OpenAI gym environment for simulating stock trades on historical price data with live rendering.
+In this article, we've implemented a simple, yet elegant visualization of the agent's trades using Matplotlib.
 
 Great thanks to:
  - [Creating new Gym Env | by OpenAI](https://github.com/openai/gym/blob/master/docs/creating-environments.md)
@@ -45,6 +46,16 @@ for i in range(100):
 env.close()
 ```
 
+## Visualization
+
+| Snapshot                     | Gif (in motion) |
+| ---------------------------- | ------------- |
+| ![](media/pics/pic1.png)     | ![](media/gifs/gif1.gif)  |
+
 ---
 
  ***Enjoy!***
+ 
+ ---
+ 
+ Created by Neural Trading &copy;
