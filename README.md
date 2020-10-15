@@ -1,7 +1,5 @@
 # Gym Env For Stock Trading
 
----
-
 Created by Neural Trading (c)
 
 Great thanks to:
