@@ -22,6 +22,8 @@ For example: ` cd PycharmProjects/ `.
 pip install -e gym-stocktrading
 `.
 
+*Make sure your pip is related to the relevant python environment (pipenv/conda/...) where gym package is located.*
+
 > That's it! You've installed the new gym-env on your computer.
 
 ## Sanity Check
