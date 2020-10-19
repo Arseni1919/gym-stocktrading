@@ -5,6 +5,7 @@ import time
 import pandas as pd
 import numpy as np
 import random
+from gym_stocktrading.envs.stocktrading_graph import StockTradingGraph
 
 # -------------------------------------------- #
 # INITIALIZATION
@@ -23,18 +24,19 @@ MAX_SHARE_PRICE = 1000
 
 
 class StockTrading(gym.Env):
-    metadata = {'render.modes': ['human']}
+    metadata = {'render.modes': ['human', 'text']}
 
     def __init__(self):
         self.db = self._prepare_data()
         self.len_of_db = len(self.db.loc[:, 'Close'].values)
         self.reward_range = (0, MAX_ACCOUNT_BALANCE)
         # 0 - Buy, 1 - Sell, 2 - Hold, (0, 1) - How much to buy / to sell
-        self.action_space = spaces.Tuple(spaces=(spaces.Discrete(n=3),
-                                                 spaces.Box(low=0.0, high=1.0, shape=(1,), dtype=np.float32)))
+        # self.action_space = spaces.Tuple(spaces=(spaces.Discrete(n=3),
+        #                                          spaces.Box(low=0.0, high=1.0, shape=(1,), dtype=np.float32)))
+        self.action_space = spaces.Box(low=0.0, high=1.0, shape=(2,), dtype=np.float32)
         # looking back
         self.observation_space = spaces.Box(low=0.0, high=MAX_JUMP_IN_STOCK_COST,
-                                            shape=(LOOK_BACK_WINDOW_SIZE,), dtype=np.float32)
+                                            shape=(LOOK_BACK_WINDOW_SIZE + 7,), dtype=np.float32)
 
     def _prepare_data(self):
         df = pd.read_csv(DATA_SOURCE)
@@ -72,7 +74,8 @@ class StockTrading(gym.Env):
         action_type = action[0]
         amount = action[1]
 
-        if action_type == 0:
+        # if action_type == 0:
+        if action_type < 0.33:
             # Buy amount % of balance in shares
             total_possible = int(self.balance / current_price)
             shares_bought = int(total_possible * amount)
@@ -92,7 +95,8 @@ class StockTrading(gym.Env):
             # self.shares_held *= 1 + current_change_in_price
             # self.shares_held += go_to_spend
 
-        elif action_type == 1:
+        # elif action_type == 1:
+        elif action_type < 0.66:
             # Sell amount % of shares held
             shares_sold = int(self.shares_held * amount)
 
@@ -155,6 +159,28 @@ class StockTrading(gym.Env):
         return obs
 
     def render(self, mode='human', close=False):
+        if mode == 'text':
+            self._render_to_file()
+        if mode == 'human':
+            if self.visualization:
+                if self.current_step > LOOK_BACK_WINDOW_SIZE:
+                    self.visualization.render(self.current_step, self.net_worth,
+                                              self.trades, window_size=LOOK_BACK_WINDOW_SIZE)
+            else:
+                title = ''
+                self.visualization = StockTradingGraph(self.db, title)
+
+    def _render_to_file(self, filename='render.txt'):
+        # profit = self.net_worth - INITIAL_ACCOUNT_BALANCE
+        # file = open(filename, 'a+')
+        # file.write(f'Step: {self.current_step}\n')
+        # file.write(f'Balance: {self.balance}\n')
+        # file.write(f'Shares held: {self.shares_held} (Total sold:{self.total_shares_sold})\n')
+        # file.write(f'Avg cost for held shares: {self.cost_basis} (Total sales value: {self.total_sales_value})\n')
+        # file.write(f'Net worth: {self.net_worth} (Max net worth: {self.max_net_worth})\n')
+        # file.write(f'Profit: {profit}\n\n')
+        # file.close()
+
         # Render the environment to the screen
         profit = self.net_worth - INITIAL_ACCOUNT_BALANCE
         print(f'Step: {self.current_step}')
