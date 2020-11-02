@@ -53,7 +53,7 @@ env.close()
 
 | Snapshot                     | Gif (in motion) |
 | ---------------------------- | ------------- |
-| ![](media/pics/pic1.png)     | ![](media/gifs/gif1.gif)  |
+| ![](media/pics/pic2.png)     | ![](media/gifs/gif2.gif)  |
 
 ---
 

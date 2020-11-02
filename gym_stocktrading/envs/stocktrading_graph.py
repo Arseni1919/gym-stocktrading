@@ -159,10 +159,10 @@ class StockTradingGraph:
                 high_low = curr_open
                 pos = high_low
                 if trade['type'] == 'buy':
-                    pos = pos - 0.05*pos
+                    pos = pos - 1
                     color = UP_TEXT_COLOR
                 else:
-                    pos = pos + 0.05 * pos
+                    pos = pos + 1
                     color = DOWN_TEXT_COLOR
 
                 total = '{0:.2f}'.format(trade['total'])
